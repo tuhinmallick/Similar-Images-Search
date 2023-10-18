@@ -28,11 +28,11 @@ if search_type == "Text":
         text = st.text_area("Enter your text here: 🖋", height=50)
     with col2:
         img_no = st.slider("Number of Images to search: ", 1, 20, 1)
-    if st.button("Search 🔍") and len(text) !=0 :
-        with st.spinner(f"Searching... 💫"):
+    if st.button("Search 🔍") and len(text) !=0:
+        with st.spinner("Searching... 💫"):
             imgs = from_text(text, num_similar = img_no)
             cols = cycle(st.columns(4))
-            for idx, img in enumerate(imgs):
+            for img in imgs:
                 next(cols).image(img, width=None, use_column_width='auto')
     else:
         st.warning('⚠ Please enter your text for Image Search! 😯')
@@ -44,11 +44,11 @@ if search_type == "URL":
         url_img = st.text_area("Enter your URL here: 🔗", height=10)
     with col2:
         img_no = st.slider("Number of Images to search: ", 1, 20, 1)
-    if st.button("Search 🔍") and len(url_img) !=0 :
-        with st.spinner(f"Searching... 💫"):
+    if st.button("Search 🔍") and len(url_img) !=0:
+        with st.spinner("Searching... 💫"):
             imgs = from_url(url_img, num_similar = img_no)
             cols = cycle(st.columns(4))
-            for idx, img in enumerate(imgs):
+            for img in imgs:
                 next(cols).image(img, width=None, use_column_width='auto')
     else:
         st.warning('⚠ Please enter your Image URL! 😯')
@@ -64,12 +64,12 @@ if search_type == "Upload Image":
         with open(os.path.join(upload_path,uploaded_file.name),"wb") as f:
             f.write((uploaded_file).getbuffer())
         if st.button("Search 🔍"):
-            with st.spinner(f"Searching... 💫"):
+            with st.spinner("Searching... 💫"):
                 uploaded_image = os.path.abspath(os.path.join(upload_path,uploaded_file.name))
                 im = Image.open(uploaded_image)
                 imgs = from_image(im, num_similar=img_no)
                 cols = cycle(st.columns(4))
-                for idx, img in enumerate(imgs):
+                for img in imgs:
                     next(cols).image(img, width=None, use_column_width='auto')
     else:
         st.warning('⚠ Please upload your Image! 😯')
